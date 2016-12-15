@@ -1,3 +1,5 @@
+from os import environ
+
 import requests
 
 import json
@@ -28,10 +30,16 @@ NEIGHBORHOODS = {
 
 # #API URL that calls the specific weather station
 # apiUrl_base = 'http://api.wunderground.com/api/' + weather_key 
+# weather_pws = urllib2.urlopen('http://api.wunderground.com/api/' + '/conditions/q/pws:' + pws_id + '.json' )
 
 
 def get_weather(pws_id, neighborhood_name):
     """ Make request to Weather Underground for temp in specific SF neighborhood."""
 
-    # weather_pws = urllib2.urlopen(apiUrl_base + '/conditions/q/pws:' + pws_id + '.json' )
-    response = requests.get(api_url)
+    # get Weather Underground API key using os.environ from secrets.sh
+    app_key = environ["KEY"]
+
+    # using the requests module, build the API url to get the weather conditions at a specific weather station (SF neighborhood)
+    api_response = requests.get('http://api.wunderground.com/api/' + app_key + '/conditions/q/pws:' + pws_id + '.json')
+
+    
