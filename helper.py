@@ -42,4 +42,10 @@ def get_weather(pws_id, neighborhood_name):
     # using the requests module, build the API url to get the weather conditions at a specific weather station (SF neighborhood)
     api_response = requests.get('http://api.wunderground.com/api/' + app_key + '/conditions/q/pws:' + pws_id + '.json')
 
+    # turn the response into a string (using content so it turns it into a string, instead of text which turns it into unicode)
+    json_string= api_response.content
+
+    # converts json string into a dictionary
+    converted_json = json.loads(api_response.content)
+
     
